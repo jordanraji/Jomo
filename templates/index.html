@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+      <div class="row col-md-4 offset-md-4">
+        <p class="title text-center">Jomo</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          {% from "_macro.html" import render_field %}
+          <form method="POST" enctype="multipart/form-data" class="text-center">
+             {{ form.csrf_token }}
+             {{ render_field(form.text, class='form-control', placeholder='Buscar')  }}  <br>
+             <button type="submit" class = "btn btn-primary">Buscar</button>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <table class="table">
+          <thead class="thead-default">
+            <tr>
+              <th>Similaridad</th>
+              <th>Nombre</th>
+              <th>Entidad</th>
+              <th>Categoría</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for element in data %}
+                <tr>
+                  <th>{{ element["similarity"] }}</th>
+                  <th>{{ element["document"]["NOMBRE"] }}</th>
+                  <th>{{ element["document"]["ENTIDADFEDERATIVA"] }}</th>
+                  <th>{{ element["document"]["DESCRIPCIONDELACATEGORIA"] }}</th>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+{% endblock %}
